@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Vertex {
+public class Vertex implements Comparable<Vertex>{
 	public String name;
 	public ArrayList<Edge> adjacent;
 	public Vertex previous;
@@ -30,6 +30,12 @@ public class Vertex {
 	}
 	
 	@Override
+	public int compareTo(Vertex V) {
+		// TODO Auto-generated method stub
+		return Double.compare(this.distance, V.distance);
+	}
+	
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -56,7 +62,7 @@ public class Vertex {
 	
 	@Override
 	public String toString() {
-		String output = this.name;
+		String output = this.name + " " + this.distance;
 		
 		if(!this.active){
 			output += " DOWN";
@@ -72,4 +78,5 @@ public class Vertex {
 		
 		return output;
 	}
+	
 }
