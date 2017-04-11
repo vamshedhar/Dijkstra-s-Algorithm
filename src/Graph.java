@@ -117,7 +117,9 @@ public class Graph {
 			System.err.println(e);
 		}
 		
-		System.out.println(G);
+//		System.out.println(G);
 		
+		Dijkstra dj = new Dijkstra(G);
+		dj.findShortestPath("Belk", "Grigg");
 	}
 }
