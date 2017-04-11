@@ -65,6 +65,20 @@ public class Graph {
 		this.updateEdgeStatus(tailVertexName, headVertexName, true);
 	}
 	
+	public void updateVertexStatus(String vertexName, boolean status){
+		Vertex V = this.getVertex(vertexName);
+		
+		V.active = status;
+	}
+	
+	public void vertexDown(String vertexName){
+		this.updateVertexStatus(vertexName, false);
+	}
+	
+	public void vertexUp(String vertexName){
+		this.updateVertexStatus(vertexName, true);
+	}
+	
 	@Override
 	public String toString() {
 		
