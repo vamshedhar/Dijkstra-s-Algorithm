@@ -43,11 +43,26 @@ public class Graph {
 		tailVertex.adjacent.remove(E);
 	}
 	
+	public void updateEdgeStatus(String tailVertexName, String headVertexName, boolean status){
 		Vertex tailVertex = this.getVertex(tailVertexName);
+		Vertex headVertex = this.getVertex(headVertexName);
 		
-		Edge E = new Edge(headVertex, tailVertex, 0.0);
+		Edge E = new Edge(tailVertex, headVertex, 0.0);
 		
-		headVertex.adjacent.remove(E);
+		int index = tailVertex.adjacent.indexOf(E);
+		if(index == -1){
+			System.out.println("Edge not found!");
+		} else{
+			tailVertex.adjacent.get(index).active = status;
+		}
+	}
+	
+	public void edgeDown(String tailVertexName, String headVertexName){
+		this.updateEdgeStatus(tailVertexName, headVertexName, false);
+	}
+	
+	public void edgeUp(String tailVertexName, String headVertexName){
+		this.updateEdgeStatus(tailVertexName, headVertexName, true);
 	}
 	
 	@Override
