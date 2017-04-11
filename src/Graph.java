@@ -34,6 +34,15 @@ public class Graph {
 		}
 	}
 	
+	public void deleteEdge(String headVertexName, String tailVertexName){
+		Vertex headVertex = this.getVertex(headVertexName);
+		Vertex tailVertex = this.getVertex(tailVertexName);
+		
+		Edge E = new Edge(headVertex, tailVertex, 0.0);
+		
+		headVertex.adjacent.remove(E);
+	}
+	
 	@Override
 	public String toString() {
 		
