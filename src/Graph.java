@@ -20,22 +20,29 @@ public class Graph {
 		return V;
 	}
 	
-	public void addEdge(String headVertexName, String tailVertexName, double weight){
-		Vertex headVertex = this.getVertex(headVertexName);
+	public void addEdge(String tailVertexName, String headVertexName, double weight){
 		Vertex tailVertex = this.getVertex(tailVertexName);
+		Vertex headVertex = this.getVertex(headVertexName);
 		
-		Edge E = new Edge(headVertex, tailVertex, weight);
+		Edge E = new Edge(tailVertex, headVertex, weight);
 		
-		int index = headVertex.adjacent.indexOf(E);
+		int index = tailVertex.adjacent.indexOf(E);
 		if(index == -1){
-			headVertex.adjacent.add(E);
+			tailVertex.adjacent.add(E);
 		} else{
-			headVertex.adjacent.get(index).weight = E.weight;
+			tailVertex.adjacent.get(index).weight = E.weight;
 		}
 	}
 	
-	public void deleteEdge(String headVertexName, String tailVertexName){
+	public void deleteEdge(String tailVertexName, String headVertexName){
+		Vertex tailVertex = this.getVertex(tailVertexName);
 		Vertex headVertex = this.getVertex(headVertexName);
+		
+		Edge E = new Edge(tailVertex, headVertex, 0.0);
+		
+		tailVertex.adjacent.remove(E);
+	}
+	
 		Vertex tailVertex = this.getVertex(tailVertexName);
 		
 		Edge E = new Edge(headVertex, tailVertex, 0.0);
@@ -73,14 +80,7 @@ public class Graph {
 			while((line = reader.readLine()) != null) {
 				String[] lineData = line.split(" ");
 				
-				Vertex startVertex = G.getVertex(lineData[0]);
-				Vertex endVertex = G.getVertex(lineData[1]);
-				
-				Double weight = Double.parseDouble(lineData[2]);
-				
-				Edge E = new Edge(startVertex, endVertex, weight);
-				
-				startVertex.adjacent.add(E);
+				G.addEdge(lineData[0], lineData[1], Double.parseDouble(lineData[2]));
 			}
 			
 			reader.close();
