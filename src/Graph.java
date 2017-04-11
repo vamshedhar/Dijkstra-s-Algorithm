@@ -20,6 +20,20 @@ public class Graph {
 		return V;
 	}
 	
+	public void addEdge(String headVertexName, String tailVertexName, double weight){
+		Vertex headVertex = this.getVertex(headVertexName);
+		Vertex tailVertex = this.getVertex(tailVertexName);
+		
+		Edge E = new Edge(headVertex, tailVertex, weight);
+		
+		int index = headVertex.adjacent.indexOf(E);
+		if(index == -1){
+			headVertex.adjacent.add(E);
+		} else{
+			headVertex.adjacent.get(index).weight = E.weight;
+		}
+	}
+	
 	@Override
 	public String toString() {
 		
