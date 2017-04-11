@@ -9,6 +9,7 @@ public class Edge {
 		this.startVertex = startVertex;
 		this.endVertex = endVertex;
 		this.weight = weight;
+		this.active = true;
 	}
 
 	@Override
@@ -40,6 +41,18 @@ public class Edge {
 		} else if (!startVertex.equals(other.startVertex))
 			return false;
 		return true;
+	}
+	
+	
+	@Override
+	public String toString() {
+		String output = "    " + this.endVertex.name + " " + this.weight;
+		
+		if(!this.active){
+			output += " DOWN";
+		}
+		
+		return output;
 	}
 	
 	

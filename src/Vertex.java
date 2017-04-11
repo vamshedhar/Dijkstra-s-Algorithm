@@ -26,6 +26,7 @@ public class Vertex {
 		this.previous = null;
 		this.color = "White";
 		this.value = 0;
+		this.active = true;
 	}
 	
 	@Override
@@ -64,7 +65,8 @@ public class Vertex {
 		output += "\n";
 		
 		for(Edge e : this.adjacent){
-			output += "\t" + e.endVertex.name + " " + e.weight + "\n";
+			output += e.toString();
+			output += "\n";
 		}
 		
 		
