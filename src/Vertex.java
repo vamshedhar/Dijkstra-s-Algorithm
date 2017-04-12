@@ -17,6 +17,7 @@ public class Vertex implements Comparable<Vertex>{
 	public Vertex(String name) {
 		this.name = name;
 		this.adjacent = new ArrayList<Edge>();
+		this.active = true;
 		this.reset();
 	}
 
@@ -28,7 +29,6 @@ public class Vertex implements Comparable<Vertex>{
 		this.distance = Double.POSITIVE_INFINITY;
 		this.previous = null;
 		this.color = "White";
-		this.active = true;
 	}
 	
 	@Override
