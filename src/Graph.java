@@ -79,6 +79,17 @@ public class Graph {
 		this.updateVertexStatus(vertexName, true);
 	}
 	
+	public void printReachable(){
+		ArrayList<String> vertexNames = new ArrayList<String>(this.vertices.keySet());
+		
+		Collections.sort(vertexNames);
+		
+		for(String vertexName : vertexNames){
+			Reachable reachable = new Reachable(this, vertexName);
+			System.out.println(reachable);
+		}
+	}
+	
 	@Override
 	public String toString() {
 		
@@ -117,9 +128,9 @@ public class Graph {
 			System.err.println(e);
 		}
 		
-//		System.out.println(G);
+//		Dijkstra dj = new Dijkstra(G);
+//		dj.findShortestPath("Belk", "Grigg");
 		
-		Dijkstra dj = new Dijkstra(G);
-		dj.findShortestPath("Belk", "Grigg");
+		G.printReachable();
 	}
 }

@@ -9,6 +9,8 @@ public class Vertex implements Comparable<Vertex>{
 	
 	// these arguments are for performing BFS/DFS
 	public String color;
+	
+	// to store position in MinHeap
 	public int position;
 	
 	public Vertex(String name) {
