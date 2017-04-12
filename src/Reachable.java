@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Reachable {
-	public Graph G;
-	public String startVertexName;
-	public ArrayList<String> reachable;
+	private Graph G;
+	private String startVertexName;
+	private ArrayList<String> reachable;
 	
 	public Reachable(Graph g, String startVertexName){
 		this.G = g;

@@ -1,7 +1,7 @@
 
 public class Dijkstra {
-	public Graph G;
-	MinHeap vertices;
+	private Graph G;
+	private MinHeap vertices;
 
 	public Dijkstra(Graph g) {
 		this.G = g;
