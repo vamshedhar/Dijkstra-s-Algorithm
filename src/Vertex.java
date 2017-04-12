@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Vertex implements Comparable<Vertex>{
 	public String name;
@@ -63,13 +64,15 @@ public class Vertex implements Comparable<Vertex>{
 	
 	@Override
 	public String toString() {
-		String output = this.name + " " + this.distance;
+		String output = this.name;
 		
 		if(!this.active){
 			output += " DOWN";
 		}
 		
 		output += "\n";
+		
+		Collections.sort(this.adjacent);
 		
 		for(Edge e : this.adjacent){
 			output += e.toString();

@@ -1,5 +1,5 @@
 
-public class Edge {
+public class Edge implements Comparable<Edge> {
 	public Vertex startVertex;
 	public Vertex endVertex;
 	public double weight;
@@ -53,6 +53,12 @@ public class Edge {
 		}
 		
 		return output;
+	}
+
+	@Override
+	public int compareTo(Edge E) {
+		// TODO Auto-generated method stub
+		return this.endVertex.name.compareTo(E.endVertex.name);
 	}
 	
 	
