@@ -14,9 +14,14 @@ public class MinHeap {
 	}
 	
 	public void swap(int indexA, int indexB){
-		Vertex temp = this.vertices.get(indexA);
+		Vertex vertexA = this.vertices.get(indexA);
+		Vertex vertexB = this.vertices.get(indexB);
+		
+		vertexB.position = indexA;
 		this.vertices.set(indexA, this.vertices.get(indexB));
-		this.vertices.set(indexB, temp);
+		
+		vertexA.position = indexB;
+		this.vertices.set(indexB, vertexA);
 	}
 	
 	public void FloatUp(int index){
@@ -29,7 +34,10 @@ public class MinHeap {
 	}
 	
 	public void insert(Vertex V){
+		
 		this.vertices.add(V);
+		V.position = this.vertices.size() - 1;
+		
 		if(this.vertices.size() > 1){
 			FloatUp(this.vertices.size() - 1);
 		}

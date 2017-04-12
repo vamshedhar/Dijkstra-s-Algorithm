@@ -9,7 +9,7 @@ public class Vertex implements Comparable<Vertex>{
 	
 	// these arguments are for performing BFS/DFS
 	public String color;
-	public int value;
+	public int position;
 	
 	public Vertex(String name) {
 		this.name = name;
@@ -25,7 +25,6 @@ public class Vertex implements Comparable<Vertex>{
 		this.distance = Double.POSITIVE_INFINITY;
 		this.previous = null;
 		this.color = "White";
-		this.value = 0;
 		this.active = true;
 	}
 	
