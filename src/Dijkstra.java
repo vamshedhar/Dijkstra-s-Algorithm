@@ -33,11 +33,11 @@ public class Dijkstra {
 		
 		this.resetVertices();
 		
-		startVertex.distance = 0;
+		
+		this.vertices.increasePriority(startVertex.position, 0.0);
 		startVertex.color = "Grey";
 		
 		Vertex V;
-		this.vertices.BuildMinHeap();
 		
 		while((V = this.vertices.extractMin()) != null){
 			
@@ -46,8 +46,7 @@ public class Dijkstra {
 					
 					if(V.distance + E.weight < E.endVertex.distance){
 						E.endVertex.previous = V;
-						E.endVertex.distance = V.distance + E.weight;
-						this.vertices.FloatUp(E.endVertex.position);
+						this.vertices.increasePriority(E.endVertex.position, V.distance + E.weight);
 					}
 					
 					E.endVertex.color = "Grey";
