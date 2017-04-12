@@ -30,6 +30,7 @@ public class MinHeap {
 		while(parent >= 0 && this.vertices.get(parent).compareTo(this.vertices.get(index)) > 0){
 			swap(parent, index);
 			index = parent;
+			parent = ((index + 1) / 2) - 1;
 		}
 	}
 	
