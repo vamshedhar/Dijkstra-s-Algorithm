@@ -34,6 +34,13 @@ public class MinHeap {
 		}
 	}
 	
+	public void increasePriority(int index, double distance){
+		Vertex V = this.vertices.get(index);
+		V.distance = distance;
+		
+		this.floatUp(index);
+	}
+	
 	public void insert(Vertex V){
 		
 		this.vertices.add(V);
