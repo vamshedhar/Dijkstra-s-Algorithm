@@ -22,7 +22,7 @@ public class MinHeap {
 	public void FloatUp(int index){
 		int parent = ((index + 1) / 2) - 1;
 		
-		while(this.vertices.get(parent).distance > this.vertices.get(index).distance){
+		while(this.vertices.get(parent).compareTo(this.vertices.get(index)) > 0){
 			swap(parent, index);
 			index = parent;
 		}
@@ -41,11 +41,11 @@ public class MinHeap {
 		
 		int smallest = index;
 		
-		if(left < this.vertices.size() && this.vertices.get(left).distance < this.vertices.get(index).distance){
+		if(left < this.vertices.size() && this.vertices.get(left).compareTo(this.vertices.get(index)) < 0){
 			smallest = left;
 		}
 		
-		if(right < this.vertices.size() && this.vertices.get(right).distance < this.vertices.get(smallest).distance){
+		if(right < this.vertices.size() && this.vertices.get(right).compareTo(this.vertices.get(smallest)) < 0){
 			smallest = right;
 		}
 		
