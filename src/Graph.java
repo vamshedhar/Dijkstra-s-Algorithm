@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Graph {
 
@@ -132,9 +133,45 @@ public class Graph {
 			System.err.println(e);
 		}
 		
-//		Dijkstra dj = new Dijkstra(G);
-//		dj.findShortestPath("Belk", "Grigg");
+		Scanner s = new Scanner(System.in);
 		
-		G.printReachable();
+		while(true){
+			String command = s.nextLine();
+			
+			if(command.trim().equals("")){
+				continue;
+			}
+			
+			String[] params = command.split(" ");
+			
+			if(params[0].equals("quit") && params.length == 1){
+				return;
+			} else if(params[0].equals("print") && params.length == 1){
+				System.out.println(G);
+			} else if(params[0].equals("reachable") && params.length == 1){
+				G.printReachable();
+			} else if(params[0].equals("addedge") && params.length == 4){
+				
+				Double weight = Double.parseDouble(params[3]);
+				G.addEdge(params[1], params[2], weight);
+				
+			} else if(params[0].equals("deleteedge") && params.length == 3){
+				G.deleteEdge(params[1], params[2]);
+			} else if(params[0].equals("edgedown") && params.length == 3){
+				G.edgeDown(params[1], params[2]);
+			} else if(params[0].equals("edgeup") && params.length == 3){
+				G.edgeUp(params[1], params[2]);
+			} else if(params[0].equals("vertexdown") && params.length == 2){
+				G.vertexDown(params[1]);
+			} else if(params[0].equals("vertexup") && params.length == 2){
+				G.vertexUp(params[1]);
+			} else if(params[0].equals("path") && params.length == 3){
+				Dijkstra dj = new Dijkstra(G);
+				dj.findShortestPath(params[1], params[2]);
+			} else{
+				System.out.println("Invalid Command!");
+			}
+		}
+	
 	}
 }
