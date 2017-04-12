@@ -85,8 +85,11 @@ public class Graph {
 		Collections.sort(vertexNames);
 		
 		for(String vertexName : vertexNames){
-			Reachable reachable = new Reachable(this, vertexName);
-			System.out.println(reachable);
+			Vertex vertex = this.vertices.get(vertexName);
+			if(vertex.active){
+				Reachable reachable = new Reachable(this, vertex);
+				System.out.println(reachable);
+			}	
 		}
 	}
 	

@@ -3,26 +3,21 @@ import java.util.Collections;
 
 public class Reachable {
 	private Graph G;
-	private String startVertexName;
+	private Vertex startVertex;
 	private ArrayList<String> reachable;
 	
-	public Reachable(Graph g, String startVertexName){
+	public Reachable(Graph g, Vertex startVertex){
 		this.G = g;
 		this.reachable = new ArrayList<String>();
-		this.startVertexName = startVertexName;
+		this.startVertex = startVertex;
 		this.resetVertices();
-		this.traverseGraph();
+		this.traverseGraph(startVertex);
 	}
 	
 	public void resetVertices(){
 		for(Vertex V : G.vertices.values()){
 			V.reset();
 		}
-	}
-	
-	public void traverseGraph(){
-		Vertex startVertex = this.G.getVertex(this.startVertexName);
-		this.traverseGraph(startVertex);
 	}
 	
 	public void traverseGraph(Vertex startVertex){
@@ -41,12 +36,12 @@ public class Reachable {
 
 	@Override
 	public String toString() {
-		String output = this.startVertexName;
+		String output = this.startVertex.name;
 		
 		Collections.sort(this.reachable);
 		
-		for(String vertexName : this.reachable){
-			output += "\n    " + vertexName;
+		for(String vertex : this.reachable){
+			output += "\n    " + vertex;
 		}
 		
 		return output;
