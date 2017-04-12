@@ -121,6 +121,7 @@ public class Graph {
 				String[] lineData = line.split(" ");
 				
 				G.addEdge(lineData[0], lineData[1], Double.parseDouble(lineData[2]));
+				G.addEdge(lineData[1], lineData[0], Double.parseDouble(lineData[2]));
 			}
 			
 			reader.close();
