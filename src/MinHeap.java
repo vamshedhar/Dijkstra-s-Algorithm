@@ -10,7 +10,7 @@ public class MinHeap {
 	
 	public MinHeap(ArrayList<Vertex> vertices){
 		this.vertices = vertices;
-		this.BuildMinHeap();
+		this.buildMinHeap();
 	}
 	
 	public void swap(int indexA, int indexB){
@@ -18,16 +18,16 @@ public class MinHeap {
 		Vertex vertexB = this.vertices.get(indexB);
 		
 		vertexB.position = indexA;
-		this.vertices.set(indexA, this.vertices.get(indexB));
+		this.vertices.set(indexA, vertexB);
 		
 		vertexA.position = indexB;
 		this.vertices.set(indexB, vertexA);
 	}
 	
-	public void FloatUp(int index){
+	public void floatUp(int index){
 		int parent = ((index + 1) / 2) - 1;
 		
-		while(this.vertices.get(parent).compareTo(this.vertices.get(index)) > 0){
+		while(parent >= 0 && this.vertices.get(parent).compareTo(this.vertices.get(index)) > 0){
 			swap(parent, index);
 			index = parent;
 		}
@@ -38,12 +38,10 @@ public class MinHeap {
 		this.vertices.add(V);
 		V.position = this.vertices.size() - 1;
 		
-		if(this.vertices.size() > 1){
-			FloatUp(this.vertices.size() - 1);
-		}
+		this.floatUp(this.vertices.size() - 1);
 	}
 	
-	public void MinHeapify(int index){
+	public void minHeapify(int index){
 		int left = 2 * index + 1;
 		int right = 2 * index + 2;
 		
@@ -59,7 +57,7 @@ public class MinHeap {
 		
 		if(smallest != index){
 			swap(smallest, index);
-			MinHeapify(smallest);
+			minHeapify(smallest);
 		}
 	}
 	
@@ -74,16 +72,16 @@ public class MinHeap {
 		
 		this.vertices.remove(vertices.size() - 1);
 		
-		this.MinHeapify(0);
+		this.minHeapify(0);
 		
 		return V;
 	}
 	
-	public void BuildMinHeap(){
+	public void buildMinHeap(){
 		int middle = (this.vertices.size() + 1) / 2 - 1;
 		
 		for(int i = middle; i >= 0; i--){
-			this.MinHeapify(i);
+			this.minHeapify(i);
 		}
 	}
 
