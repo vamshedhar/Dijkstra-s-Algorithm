@@ -40,14 +40,14 @@ public class Dijkstra {
 		this.vertices.BuildMinHeap();
 		
 		while((V = this.vertices.extractMin()) != null){
-			System.out.println(V.name);
-			System.out.println(this.vertices);
+			
 			for(Edge E : V.adjacent){
 				if(E.active && E.endVertex.active && !E.endVertex.color.equals("Black")){
 					
 					if(V.distance + E.weight < E.endVertex.distance){
 						E.endVertex.previous = V;
 						E.endVertex.distance = V.distance + E.weight;
+						this.vertices.FloatUp(E.endVertex.position);
 					}
 					
 					E.endVertex.color = "Grey";
