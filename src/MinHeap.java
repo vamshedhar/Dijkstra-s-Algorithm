@@ -76,7 +76,11 @@ public class MinHeap {
 		
 		Vertex V = this.vertices.get(0);
 		
-		this.vertices.set(0, this.vertices.get(this.vertices.size() - 1));
+		Vertex last = this.vertices.get(this.vertices.size() - 1);
+		
+		last.position = 0;
+		
+		this.vertices.set(0, last);
 		
 		this.vertices.remove(vertices.size() - 1);
 		
