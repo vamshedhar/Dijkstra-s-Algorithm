@@ -104,16 +104,37 @@ public class Graph {
 		this.updateEdgeStatus(tailVertexName, headVertexName, true);
 	}
 	
+	/**
+     * @param String VertexName
+     * @param Boolean Status
+     * 
+     * Updates the status of the Vertex to specified status
+     */
 	public void updateVertexStatus(String vertexName, boolean status){
-		Vertex V = this.getVertex(vertexName);
+		Vertex V = this.vertices.get(vertexName);
+		
+		if(V == null){
+			System.out.println("Vertex not found!");
+			return;
+		}
 		
 		V.active = status;
 	}
 	
+	/**
+     * @param String VertexName
+     * 
+     * Marks the Vertex DOWN
+     */
 	public void vertexDown(String vertexName){
 		this.updateVertexStatus(vertexName, false);
 	}
 	
+	/**
+     * @param String VertexName
+     * 
+     * Marks the Vertex UP
+     */
 	public void vertexUp(String vertexName){
 		this.updateVertexStatus(vertexName, true);
 	}
