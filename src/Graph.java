@@ -4,6 +4,7 @@
  */
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,10 +13,26 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+/**
+ * 
+ * Simple Graph class. Takes no parameters. Contains list of vertices and all related functions
+ * 
+ * @author vamshedhar
+ */
 public class Graph {
 
+	// Use HashMap to store list of all the vertices
 	public HashMap<String, Vertex> vertices = new HashMap<String, Vertex>();
 	
+	
+	/**
+	 * Check if a vertex exists with the given name
+     * If yes returns the vertex
+     * If no creates a new vertex with that name and returns the new vertex
+     * 
+	 * @param name String VertexName
+	 * @return Vertex with given name
+	 */
 	public Vertex getVertex(String name){
 		Vertex V = this.vertices.get(name);
 		
@@ -27,6 +44,15 @@ public class Graph {
 		return V;
 	}
 	
+	/**
+	 * Checks if the edge already exists or not
+     * If yes returns updates the edge's transmission time
+     * If no creates a new edge between the edges with the given weight
+     * 
+	 * @param tailVertexName String tail vertex name
+	 * @param headVertexName String head vertex name
+	 * @param weight Double transmission time
+	 */
 	public void addEdge(String tailVertexName, String headVertexName, double weight){
 		Vertex tailVertex = this.getVertex(tailVertexName);
 		Vertex headVertex = this.getVertex(headVertexName);
@@ -42,6 +68,12 @@ public class Graph {
 	}
 	
 	
+	/**
+	 * Removes edge from the adjacency list of TailVertex
+	 * 
+	 * @param tailVertexName String tail vertex name
+	 * @param headVertexName String head vertex name
+	 */
 	public void deleteEdge(String tailVertexName, String headVertexName){
 		Vertex tailVertex = this.vertices.get(tailVertexName);
 		Vertex headVertex = this.vertices.get(headVertexName);
@@ -58,12 +90,13 @@ public class Graph {
 		
 	}
 	
+	
 	/**
-     * @param String TailVertexName
-     * @param String HeadVertexName
-     * 
-     * Updates the status of the Edge to specified status
-     */
+	 * 
+	 * @param tailVertexName String tail vertex name
+	 * @param headVertexName String head vertex name
+	 * @param status Boolean Status of edge
+	 */
 	public void updateEdgeStatus(String tailVertexName, String headVertexName, boolean status){
 		Vertex tailVertex = this.vertices.get(tailVertexName);
 		Vertex headVertex = this.vertices.get(headVertexName);
@@ -84,32 +117,34 @@ public class Graph {
 		}
 	}
 	
+	
 	/**
-     * @param String TailVertexName
-     * @param String HeadVertexName
-     * 
-     * Marks the Edge DOWN
-     */
+	 * Marks the Edge DOWN
+	 * 
+	 * @param tailVertexName String tail vertex name
+	 * @param headVertexName String head vertex name
+	 */
 	public void edgeDown(String tailVertexName, String headVertexName){
 		this.updateEdgeStatus(tailVertexName, headVertexName, false);
 	}
 	
 	/**
-     * @param String TailVertexName
-     * @param String HeadVertexName
-     * 
-     * Marks the Edge UP
-     */
+	 * Marks the Edge UP
+	 * 
+	 * @param tailVertexName String tail vertex name
+	 * @param headVertexName String head vertex name
+	 */
 	public void edgeUp(String tailVertexName, String headVertexName){
 		this.updateEdgeStatus(tailVertexName, headVertexName, true);
 	}
+
 	
 	/**
-     * @param String VertexName
-     * @param Boolean Status
-     * 
-     * Updates the status of the Vertex to specified status
-     */
+	 * Updates the status of the Vertex to specified status
+	 * 
+	 * @param vertexName String vertex name
+	 * @param status Status of vertex
+	 */
 	public void updateVertexStatus(String vertexName, boolean status){
 		Vertex V = this.vertices.get(vertexName);
 		
@@ -121,24 +156,30 @@ public class Graph {
 		V.active = status;
 	}
 	
+	
 	/**
-     * @param String VertexName
-     * 
-     * Marks the Vertex DOWN
-     */
+	 * Marks the Vertex DOWN
+	 * 
+	 * @param vertexName String vertex name
+	 */
 	public void vertexDown(String vertexName){
 		this.updateVertexStatus(vertexName, false);
 	}
 	
 	/**
-     * @param String VertexName
-     * 
-     * Marks the Vertex UP
-     */
+	 * Marks the Vertex UP
+	 * 
+	 * @param vertexName String vertex name
+	 */
 	public void vertexUp(String vertexName){
 		this.updateVertexStatus(vertexName, true);
 	}
 	
+	/**
+	 * 
+     * Lists all the reachable vertices for all the UP vertices
+     * It uses Reachable class to find all the reachable vertices from a specified start vertex
+     */
 	public void printReachable(){
 		ArrayList<String> vertexNames = new ArrayList<String>(this.vertices.keySet());
 		
@@ -153,6 +194,10 @@ public class Graph {
 		}
 	}
 	
+	/**
+	 * 
+     * Overrides toString function to print Graph in required format
+     */
 	@Override
 	public String toString() {
 		
