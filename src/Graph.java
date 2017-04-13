@@ -41,13 +41,21 @@ public class Graph {
 		}
 	}
 	
+	
 	public void deleteEdge(String tailVertexName, String headVertexName){
-		Vertex tailVertex = this.getVertex(tailVertexName);
-		Vertex headVertex = this.getVertex(headVertexName);
+		Vertex tailVertex = this.vertices.get(tailVertexName);
+		Vertex headVertex = this.vertices.get(headVertexName);
 		
-		Edge E = new Edge(tailVertex, headVertex, 0.0);
+		if(tailVertex == null){
+			System.out.println("Invalid Edge. Source vertex not found!");
+		} else if(headVertex == null){
+			System.out.println("Invalid Edge. Destination vertex not found!");
+		} else{
+			Edge E = new Edge(tailVertex, headVertex, 0.0);
+			tailVertex.adjacent.remove(E);
+		}
 		
-		tailVertex.adjacent.remove(E);
+		
 	}
 	
 	public void updateEdgeStatus(String tailVertexName, String headVertexName, boolean status){
