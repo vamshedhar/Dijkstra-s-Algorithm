@@ -1,3 +1,7 @@
+/**
+ * 
+ * @author Vamshedhar Reddy Chintala
+ */
 
 public class Dijkstra {
 	private Graph G;

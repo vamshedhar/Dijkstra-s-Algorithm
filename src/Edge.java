@@ -1,3 +1,7 @@
+/**
+ * 
+ * @author Vamshedhar Reddy Chintala
+ */
 
 public class Edge implements Comparable<Edge> {
 	public Vertex startVertex;
