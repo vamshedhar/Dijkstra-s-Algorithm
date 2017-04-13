@@ -170,31 +170,67 @@ public class Graph {
 	}
 	
 	public static void main(String[] args){
-		// System arguments. Will change
-		String filename = "network.txt";
+		
+		// Validate arguments 
+		if (args.length != 1) {
+            System.err.println("Invalid Format!");
+            System.err.println("Expected Format: java Graph <filename or filepath>");
+            return;
+        }
+
+        String filename = args[0];
 		
 		Graph G = new Graph();
 		
 		try{
-			// Read data from file
 			BufferedReader reader = new BufferedReader(new FileReader(filename));
 			
 			String line;
 			while((line = reader.readLine()) != null) {
-				String[] lineData = line.split(" ");
 				
-				G.addEdge(lineData[0], lineData[1], Double.parseDouble(lineData[2]));
-				G.addEdge(lineData[1], lineData[0], Double.parseDouble(lineData[2]));
+				StringTokenizer st = new StringTokenizer(line);
+				
+				if(st.countTokens() != 3){
+					System.err.println("Invalid data!");
+					reader.close();
+					return;
+				}
+				
+				String tailVertexName = st.nextToken();
+				String headVertexName = st.nextToken();
+				Double weight = Double.parseDouble(st.nextToken());
+				
+				G.addEdge(tailVertexName, headVertexName, weight);
+				G.addEdge(headVertexName, tailVertexName, weight);
 			}
 			
 			reader.close();
+		} catch(FileNotFoundException e){
+			System.err.println("File Not Found!");
+			return;
+		} catch(NumberFormatException e){
+			System.err.println("Invalid Data!");
+			return;
 		} catch(IOException e){
-			System.err.println(e);
+			System.err.println("Invalid Data!");
+			return;
 		}
 		
 		Scanner s = new Scanner(System.in);
 		
+		/*
+		 * 
+		 * Wait for commands. 
+		 * Reads commands and executes them. 
+		 * Raises valid errors if any
+		 */
 		while(true){
+			
+			/*
+			 * Valid Commands
+			 * 		print		quit	reachable	addedge		deleteedge
+			 * 		edgedown	edgeup	vertexdown	vertexup	path
+			 */
 			String command = s.nextLine();
 			
 			StringTokenizer st = new StringTokenizer(command);
