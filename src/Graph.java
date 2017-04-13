@@ -58,24 +58,48 @@ public class Graph {
 		
 	}
 	
+	/**
+     * @param String TailVertexName
+     * @param String HeadVertexName
+     * 
+     * Updates the status of the Edge to specified status
+     */
 	public void updateEdgeStatus(String tailVertexName, String headVertexName, boolean status){
-		Vertex tailVertex = this.getVertex(tailVertexName);
-		Vertex headVertex = this.getVertex(headVertexName);
+		Vertex tailVertex = this.vertices.get(tailVertexName);
+		Vertex headVertex = this.vertices.get(headVertexName);
 		
-		Edge E = new Edge(tailVertex, headVertex, 0.0);
-		
-		int index = tailVertex.adjacent.indexOf(E);
-		if(index == -1){
-			System.out.println("Edge not found!");
+		if(tailVertex == null){
+			System.out.println("Invalid Edge. Source vertex not found!");
+		} else if(headVertex == null){
+			System.out.println("Invalid Edge. Destination vertex not found!");
 		} else{
-			tailVertex.adjacent.get(index).active = status;
+			Edge E = new Edge(tailVertex, headVertex, 0.0);
+			
+			int index = tailVertex.adjacent.indexOf(E);
+			if(index == -1){
+				System.out.println("Edge not found!");
+			} else{
+				tailVertex.adjacent.get(index).active = status;
+			}
 		}
 	}
 	
+	/**
+     * @param String TailVertexName
+     * @param String HeadVertexName
+     * 
+     * Marks the Edge DOWN
+     */
 	public void edgeDown(String tailVertexName, String headVertexName){
 		this.updateEdgeStatus(tailVertexName, headVertexName, false);
 	}
 	
+	/**
+     * @param String TailVertexName
+     * @param String HeadVertexName
+     * 
+     * Marks the Edge UP
+     */
 	public void edgeUp(String tailVertexName, String headVertexName){
 		this.updateEdgeStatus(tailVertexName, headVertexName, true);
 	}
