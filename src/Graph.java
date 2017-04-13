@@ -145,6 +145,7 @@ public class Graph {
 			String[] params = command.split(" ");
 			
 			if(params[0].equals("quit") && params.length == 1){
+				s.close();
 				return;
 			} else if(params[0].equals("print") && params.length == 1){
 				System.out.println(G);
