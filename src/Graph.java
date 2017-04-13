@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Graph {
 
@@ -143,37 +144,71 @@ public class Graph {
 		while(true){
 			String command = s.nextLine();
 			
-			if(command.trim().equals("")){
+			StringTokenizer st = new StringTokenizer(command);
+			
+			int tokenCount = st.countTokens();
+			
+			if(tokenCount == 0){
 				continue;
 			}
 			
-			String[] params = command.split(" ");
+			String query = st.nextToken();
 			
-			if(params[0].equals("quit") && params.length == 1){
+			if(query.equals("quit") && tokenCount == 1){
 				s.close();
 				return;
-			} else if(params[0].equals("print") && params.length == 1){
+			} else if(query.equals("print") && tokenCount == 1){
 				System.out.println(G);
-			} else if(params[0].equals("reachable") && params.length == 1){
+			} else if(query.equals("reachable") && tokenCount == 1){
 				G.printReachable();
-			} else if(params[0].equals("addedge") && params.length == 4){
+			} else if(query.equals("addedge") && tokenCount == 4){
+
+				String tailVertex = st.nextToken();
+				String headVertex = st.nextToken();
 				
-				Double weight = Double.parseDouble(params[3]);
-				G.addEdge(params[1], params[2], weight);
+				try{
+					Double weight = Double.parseDouble(st.nextToken());
+					G.addEdge(tailVertex, headVertex, weight);
+				} catch(NumberFormatException e){
+					System.out.println("Invalid Transmission Time!");
+				}
 				
-			} else if(params[0].equals("deleteedge") && params.length == 3){
-				G.deleteEdge(params[1], params[2]);
-			} else if(params[0].equals("edgedown") && params.length == 3){
-				G.edgeDown(params[1], params[2]);
-			} else if(params[0].equals("edgeup") && params.length == 3){
-				G.edgeUp(params[1], params[2]);
-			} else if(params[0].equals("vertexdown") && params.length == 2){
-				G.vertexDown(params[1]);
-			} else if(params[0].equals("vertexup") && params.length == 2){
-				G.vertexUp(params[1]);
-			} else if(params[0].equals("path") && params.length == 3){
+
+			} else if(query.equals("deleteedge") && tokenCount == 3){
+
+				String tailVertex = st.nextToken();
+				String headVertex = st.nextToken();
+				G.deleteEdge(tailVertex, headVertex);
+
+			} else if(query.equals("edgedown") && tokenCount == 3){
+
+				String tailVertex = st.nextToken();
+				String headVertex = st.nextToken();
+				G.edgeDown(tailVertex, headVertex);
+
+			} else if(query.equals("edgeup") && tokenCount == 3){
+
+				String tailVertex = st.nextToken();
+				String headVertex = st.nextToken();
+				G.edgeUp(tailVertex, headVertex);
+
+			} else if(query.equals("vertexdown") && tokenCount == 2){
+
+				String vertex = st.nextToken();
+				G.vertexDown(vertex);
+
+			} else if(query.equals("vertexup") && tokenCount == 2){
+
+				String vertex = st.nextToken();
+				G.vertexUp(vertex);
+
+			} else if(query.equals("path") && tokenCount == 3){
+
 				Dijkstra dj = new Dijkstra(G);
-				dj.findShortestPath(params[1], params[2]);
+				String startVertex = st.nextToken();
+				String endVertex = st.nextToken();
+				dj.findShortestPath(startVertex, endVertex);
+				
 			} else{
 				System.out.println("Invalid Command!");
 			}
