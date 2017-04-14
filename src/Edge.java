@@ -62,20 +62,6 @@ public class Edge implements Comparable<Edge> {
 	}
 	
 	/**
-	 * Prints edge in specified format
-	 */
-	@Override
-	public String toString() {
-		String output = "    " + this.endVertex.name + " " + this.weight;
-		
-		if(!this.active){
-			output += " DOWN";
-		}
-		
-		return output;
-	}
-	
-	/**
 	 * Compares edges based on their end vertex names
 	 */
 	@Override
@@ -84,5 +70,17 @@ public class Edge implements Comparable<Edge> {
 		return this.endVertex.name.compareTo(E.endVertex.name);
 	}
 	
-	
+	/**
+	 * Prints edge in specified format
+	 */
+	@Override
+	public String toString() {
+		String output = "  " + this.endVertex.name + " " + this.weight;
+		
+		if(!this.active){
+			output += " DOWN";
+		}
+		
+		return output;
+	}	
 }
