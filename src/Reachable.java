@@ -34,6 +34,12 @@ public class Reachable {
 	 * @param startVertex	Vertex of which reachable vertices are to be found
 	 */
 	public Reachable(Graph g, Vertex startVertex){
+		/*
+		 * resetVertices takes O(|V|) time. Check specific function for explanation.
+		 * traverseGraph takes O(|E|) time. Check specific function for explanation.
+		 * 
+		 * Over all the following algorithm takes O(|V| + |E|) time in worst case.
+		 */
 		this.G = g;
 		this.reachable = new ArrayList<String>();
 		this.startVertex = startVertex;
@@ -42,9 +48,13 @@ public class Reachable {
 	}
 	
 	/**
-	 * Resets all extra parameters of the vertices to their default values
+	 * Resets all extra parameters of the vertices to their default values.
+	 * Sets vertex color to White. Parent as null.
 	 */
 	public void resetVertices(){
+		/*
+		 * This loop runs O(|V|) times. |V| is number of vertices.
+		 */
 		for(Vertex V : G.vertices.values()){
 			V.reset();
 		}
@@ -62,7 +72,14 @@ public class Reachable {
 		 * Then check for all the outgoing UP edges from this vertex.
 		 * If the vertex is active and is being visited for the first 
 		 * time add it to the reachable list and recursively traverse
-		 * starting from that vertex
+		 * starting from that vertex.
+		 * 
+		 * This function on a worst case is recursively called one for 
+		 * each vertex. And for each vertex it runs a loop on all its
+		 * edges ie., O(|adj(V)|). 
+		 * 
+		 * Total number of times the function runs is SUM of outgoing 
+		 * edges of all the vertices ie., O(|E|)
 		 */
 		startVertex.color = "Grey";
 		
