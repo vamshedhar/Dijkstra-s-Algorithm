@@ -21,7 +21,7 @@ public class Vertex implements Comparable<Vertex>{
 	 * these arguments are for performing BFS/DFS
 	 */
 	public String color;				// Color of vertex on traversing
-	public double distance;				// Shortest distance from source vertex
+	public double distance;				// Shortest distance from start vertex
 	public Vertex previous;				// Previous vertex on the shortest path
 	public int position;				// Position of vertex in the MinHeap Array for Dijkstra's
 	

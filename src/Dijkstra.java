@@ -20,7 +20,7 @@ public class Dijkstra {
 	/**
 	 * Add all vertices in the graph to the priority queue
 	 */
-	public void resetVertices(){
+	private void resetVertices(){
 		this.vertices = new MinHeap();
 		for(Vertex V : G.vertices.values()){
 			V.reset();

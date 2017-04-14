@@ -98,7 +98,7 @@ public class Graph {
 	 * @param headVertexName String head vertex name
 	 * @param status Boolean Status of edge
 	 */
-	public void updateEdgeStatus(String tailVertexName, String headVertexName, boolean status){
+	private void updateEdgeStatus(String tailVertexName, String headVertexName, boolean status){
 		Vertex tailVertex = this.vertices.get(tailVertexName);
 		Vertex headVertex = this.vertices.get(headVertexName);
 		
@@ -146,7 +146,7 @@ public class Graph {
 	 * @param vertexName String vertex name
 	 * @param status Status of vertex
 	 */
-	public void updateVertexStatus(String vertexName, boolean status){
+	private void updateVertexStatus(String vertexName, boolean status){
 		Vertex V = this.vertices.get(vertexName);
 		
 		if(V == null){
