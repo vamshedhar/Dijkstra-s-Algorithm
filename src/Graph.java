@@ -92,6 +92,7 @@ public class Graph {
 	
 	
 	/**
+	 * Updates the status of the edge
 	 * 
 	 * @param tailVertexName String tail vertex name
 	 * @param headVertexName String head vertex name
@@ -295,6 +296,7 @@ public class Graph {
 				System.out.println(G);
 			} else if(query.equals("reachable") && tokenCount == 1){
 				G.printReachable();
+				System.out.println("");
 			} else if(query.equals("addedge") && tokenCount == 4){
 
 				String tailVertex = st.nextToken();
@@ -343,6 +345,7 @@ public class Graph {
 				String endVertex = st.nextToken();
 				dj.findShortestPath(startVertex, endVertex);
 				
+				System.out.println("");
 			} else{
 				System.out.println("Invalid Command!");
 			}
