@@ -5,20 +5,38 @@
 
 import java.util.ArrayList;
 
-
+/**
+ * Implementation of Min-Heap for vertices
+ * with priority based on their distances from the source vertex
+ * 
+ * @author vamshedhar
+ *
+ */
 public class MinHeap {
-	private ArrayList<Vertex> vertices;
+	private ArrayList<Vertex> vertices;		// List of vertices
 	
+	/**
+	 * Initialize Min-Heap with no elements
+	 */
 	public MinHeap(){
 		this.vertices = new ArrayList<Vertex>();
 	}
 	
+	/**
+	 * Initialize Binary tree with List of vertices and build Min-Heap
+	 */
 	public MinHeap(ArrayList<Vertex> vertices){
 		this.vertices = vertices;
 		this.buildMinHeap();
 	}
 	
-	public void swap(int indexA, int indexB){
+	/**
+	 * Swaps both the vertex position in the array
+	 * 
+	 * @param indexA Vertex A index
+	 * @param indexB Vertex B index
+	 */
+	private void swap(int indexA, int indexB){
 		Vertex vertexA = this.vertices.get(indexA);
 		Vertex vertexB = this.vertices.get(indexB);
 		
@@ -29,7 +47,12 @@ public class MinHeap {
 		this.vertices.set(indexB, vertexA);
 	}
 	
-	public void floatUp(int index){
+	/**
+	 * Float the vertex up the Heap till we restore it to valid Min-Heap
+	 * 
+	 * @param index
+	 */
+	private void floatUp(int index){
 		int parent = ((index + 1) / 2) - 1;
 		
 		while(parent >= 0 && this.vertices.get(parent).compareTo(this.vertices.get(index)) > 0){
@@ -39,6 +62,13 @@ public class MinHeap {
 		}
 	}
 	
+	/**
+	 * Increase priority of a Vertex in the Min-Heap
+	 * Updates distance of the Vertex from source vertex
+	 * 
+	 * @param index 	Index of the vertex in the Heap ArrayList
+	 * @param distance  New distance of the source vertex
+	 */
 	public void increasePriority(int index, double distance){
 		Vertex V = this.vertices.get(index);
 		V.distance = distance;
@@ -46,6 +76,11 @@ public class MinHeap {
 		this.floatUp(index);
 	}
 	
+	/**
+	 * Insert new vertex to the heap and float up till valid Min-Heap is formed
+	 * 
+	 * @param V New vertex to the Heap
+	 */
 	public void insert(Vertex V){
 		
 		this.vertices.add(V);
@@ -54,7 +89,12 @@ public class MinHeap {
 		this.floatUp(this.vertices.size() - 1);
 	}
 	
-	public void minHeapify(int index){
+	/**
+	 * Restore to min heap by floating the element at given index down the tree to its valid position
+	 * 
+	 * @param index
+	 */
+	private void minHeapify(int index){
 		int left = 2 * index + 1;
 		int right = 2 * index + 2;
 		
@@ -74,6 +114,11 @@ public class MinHeap {
 		}
 	}
 	
+	/**
+	 * Extract the Vertex with least distance from the source vertex.
+	 * Restore to a valid Min-Heap.
+	 * @return
+	 */
 	public Vertex extractMin(){
 		if(this.vertices.size() == 0){
 			return null;
@@ -94,7 +139,11 @@ public class MinHeap {
 		return V;
 	}
 	
-	public void buildMinHeap(){
+	
+	/**
+	 * Convert a Binary tree to a valid Min-Heap
+	 */
+	private void buildMinHeap(){
 		int middle = (this.vertices.size() + 1) / 2 - 1;
 		
 		for(int i = middle; i >= 0; i--){
@@ -102,6 +151,9 @@ public class MinHeap {
 		}
 	}
 
+	/**
+	 * Print Min-Heap
+	 */
 	@Override
 	public String toString() {
 		return vertices.toString();
