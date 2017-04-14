@@ -6,36 +6,60 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Vertex class which represent's vertex in a graph.
+ * Takes vertex name as parameter
+ * 
+ * @author vamshedhar
+ */
 public class Vertex implements Comparable<Vertex>{
-	public String name;
-	public ArrayList<Edge> adjacent;
-	public Vertex previous;
-	public double distance;
-	public boolean active;
+	public String name;					// Name of the vertex
+	public ArrayList<Edge> adjacent;	// List of all the edges connecting adjacent vertices
+	public boolean active;				// Status of vertex UP/DOWN
 	
-	// these arguments are for performing BFS/DFS
-	public String color;
+	/*
+	 * these arguments are for performing BFS/DFS
+	 */
+	public String color;				// Color of vertex on traversing
+	public double distance;				// Shortest distance from source vertex
+	public Vertex previous;				// Previous vertex on the shortest path
+	public int position;				// Position of vertex in the MinHeap Array for Dijkstra's
 	
-	// to store position in MinHeap
-	public int position;
 	
+	/**
+	 * Initializes vertex with no adjacent vertices
+	 * 
+	 * @param name String vertex name
+	 */
 	public Vertex(String name) {
 		this.name = name;
 		this.adjacent = new ArrayList<Edge>();
 		this.active = true;
 		this.reset();
 	}
-
+	
+	/**
+	 * Checks if given vertex is adjacent to the current vertex
+	 * 
+	 * @param V Vertex 
+	 * @return True if vertex V is adjacent to current vertex else false
+	 */
 	public boolean isAdjacent(Vertex V){
 		return this.adjacent.contains(V);
 	}
 	
+	/**
+	 * Resets traversal parameters to their defaults
+	 */
 	public void reset(){
 		this.distance = Double.POSITIVE_INFINITY;
 		this.previous = null;
 		this.color = "White";
 	}
 	
+	/**
+	 * Compares two vertices based on their distance from the source vertex.
+	 */
 	@Override
 	public int compareTo(Vertex V) {
 		// TODO Auto-generated method stub
@@ -50,6 +74,9 @@ public class Vertex implements Comparable<Vertex>{
 		return result;
 	}
 
+	/**
+	 * Two vertices are equal if they have same name
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -67,6 +94,9 @@ public class Vertex implements Comparable<Vertex>{
 		return true;
 	}
 	
+	/**
+	 * Prints Vertex and its adjacent vertices in sorted order of their names in specified format
+	 */
 	@Override
 	public String toString() {
 		String output = this.name;

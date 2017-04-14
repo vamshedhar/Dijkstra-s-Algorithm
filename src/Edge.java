@@ -3,19 +3,30 @@
  * @author Vamshedhar Reddy Chintala
  */
 
+/**
+ * Edge class to represent an edge in a Graph
+ * @author vamshedhar
+ *
+ */
 public class Edge implements Comparable<Edge> {
 	public Vertex startVertex;
 	public Vertex endVertex;
 	public double weight;
 	public boolean active;
 	
+	/**
+	 * Initializes edge from tail vertex to edge vertex with specified weight 
+	 * @param startVertex
+	 * @param endVertex
+	 * @param weight
+	 */
 	public Edge(Vertex startVertex, Vertex endVertex, double weight) {
 		this.startVertex = startVertex;
 		this.endVertex = endVertex;
 		this.weight = weight;
 		this.active = true;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -25,6 +36,9 @@ public class Edge implements Comparable<Edge> {
 		return result;
 	}
 
+	/**
+	 * Two edges are equal when both their start and end vertices are same
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -47,7 +61,9 @@ public class Edge implements Comparable<Edge> {
 		return true;
 	}
 	
-	
+	/**
+	 * Prints edge in specified format
+	 */
 	@Override
 	public String toString() {
 		String output = "    " + this.endVertex.name + " " + this.weight;
@@ -58,7 +74,10 @@ public class Edge implements Comparable<Edge> {
 		
 		return output;
 	}
-
+	
+	/**
+	 * Compares edges based on their end vertex names
+	 */
 	@Override
 	public int compareTo(Edge E) {
 		// TODO Auto-generated method stub
