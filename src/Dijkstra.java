@@ -35,7 +35,7 @@ public class Dijkstra {
 	 */
 	public String getPath(Vertex V){
 		
-		String path = V.name + " " + V.distance;
+		String path = V.name + " " + Math.round(V.distance * 100D) / 100D;
 		
 		while(V.previous != null){
 			path = V.previous.name + " " + path;
