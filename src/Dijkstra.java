@@ -12,7 +12,9 @@
 public class Dijkstra {
 	private Graph G;			// Graph on which Algorithm has to be performed
 	private MinHeap vertices;	// Priority Queue to sort vertices based on their distances from start vertex
-
+	private Vertex startVertex;
+	private Vertex endVertex;
+	
 	public Dijkstra(Graph g) {
 		this.G = g;
 	}
@@ -33,16 +35,21 @@ public class Dijkstra {
 	 * @param V End vertex on the path
 	 * @return Path from start vertex to end vertex and shortest distance
 	 */
-	public String getPath(Vertex V){
-		
-		String path = V.name + " " + Math.round(V.distance * 100D) / 100D;
-		
-		while(V.previous != null){
-			path = V.previous.name + " " + path;
-			V = V.previous;
+	public String getPath(){
+		Vertex V = this.endVertex;
+		if(V.distance != Double.POSITIVE_INFINITY){
+			String path = V.name + " " + Math.round(V.distance * 100D) / 100D;
+			
+			while(V.previous != null){
+				path = V.previous.name + " " + path;
+				V = V.previous;
+			}
+			
+			return path;
+		} else{
+			return "Vertex " + this.endVertex.name + " not reachable from " + this.startVertex.name;
 		}
 		
-		return path;
 	}
 	
 	/**
@@ -52,8 +59,8 @@ public class Dijkstra {
 	 * @param endVertexName String end vertex name
 	 */
 	public void findShortestPath(String startVertexName, String endVertexName){
-		Vertex startVertex = G.vertices.get(startVertexName);
-		Vertex endVertex = G.vertices.get(endVertexName);
+		this.startVertex = G.vertices.get(startVertexName);
+		this.endVertex = G.vertices.get(endVertexName);
 		
 		if(startVertex == null){
 			System.out.println("Source vertex not found!");
@@ -112,7 +119,7 @@ public class Dijkstra {
 		/*
 		 * Print the shortest path
 		 */
-		System.out.println(this.getPath(endVertex));
+		System.out.println(this.getPath());
 		
 	}
 	
