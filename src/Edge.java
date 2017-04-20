@@ -75,7 +75,7 @@ public class Edge implements Comparable<Edge> {
 	 */
 	@Override
 	public String toString() {
-		String output = "  " + this.endVertex.name + " " + this.weight;
+		String output = "  " + this.endVertex.name + " " + Math.round(this.weight * 100D) / 100D;
 		
 		if(!this.active){
 			output += " DOWN";
