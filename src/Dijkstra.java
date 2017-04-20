@@ -12,8 +12,8 @@
 public class Dijkstra {
 	private Graph G;			// Graph on which Algorithm has to be performed
 	private MinHeap vertices;	// Priority Queue to sort vertices based on their distances from start vertex
-	private Vertex startVertex;
-	private Vertex endVertex;
+	private Vertex startVertex;	// Start vertex of the path
+	private Vertex endVertex;	// End vertex of the path
 	
 	public Dijkstra(Graph g) {
 		this.G = g;
@@ -47,7 +47,7 @@ public class Dijkstra {
 			
 			return path;
 		} else{
-			return "Vertex " + this.endVertex.name + " not reachable from " + this.startVertex.name;
+			return this.endVertex.name + " is not reachable from " + this.startVertex.name;
 		}
 		
 	}

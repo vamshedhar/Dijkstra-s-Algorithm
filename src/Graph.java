@@ -262,6 +262,10 @@ public class Graph {
 			return;
 		}
 		
+		System.out.println("File read successful!!");          
+		System.out.println(G.vertices.size( ) + " vertices" );
+		System.out.println("Waiting for commands:");  
+		
 		Scanner s = new Scanner(System.in);
 		
 		/*
