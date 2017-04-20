@@ -52,8 +52,16 @@ public class Dijkstra {
 	 * @param endVertexName String end vertex name
 	 */
 	public void findShortestPath(String startVertexName, String endVertexName){
-		Vertex startVertex = G.getVertex(startVertexName);
-		Vertex endVertex = G.getVertex(endVertexName);
+		Vertex startVertex = G.vertices.get(startVertexName);
+		Vertex endVertex = G.vertices.get(endVertexName);
+		
+		if(startVertex == null){
+			System.out.println("Source vertex not found!");
+			return;
+		} else if(endVertex == null){
+			System.out.println("Destination vertex not found!");
+			return;
+		}
 		
 		this.resetVertices();
 		
