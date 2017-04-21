@@ -6,11 +6,11 @@
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /**
@@ -181,18 +181,21 @@ public class Graph {
      * Lists all the reachable vertices for all the UP vertices
      * It uses Reachable class to find all the reachable vertices from a specified start vertex
      */
-	public void printReachable(){
+	public String printReachable(){
 		ArrayList<String> vertexNames = new ArrayList<String>(this.vertices.keySet());
 		
 		Collections.sort(vertexNames);
 		
+		String output = "";
 		for(String vertexName : vertexNames){
 			Vertex vertex = this.vertices.get(vertexName);
 			if(vertex.active){
 				Reachable reachable = new Reachable(this, vertex);
-				System.out.println(reachable);
+				output += reachable.toString() + "\n";
 			}	
 		}
+		
+		return output;
 	}
 	
 	/**
@@ -218,18 +221,20 @@ public class Graph {
 	public static void main(String[] args){
 		
 		// Validate arguments 
-		if (args.length != 1) {
+		if (args.length != 3) {
             System.err.println("Invalid Format!");
-            System.err.println("Expected Format: java Graph <filename or filepath>");
+            System.err.println("Expected Format: java Graph <graphfile> <queriesfile> <outputfile>");
             return;
         }
 
-        String filename = args[0];
+        String graphfile = args[0];
+        String queriesfile = args[1];
+        String outputfile = args[2];
 		
 		Graph G = new Graph();
 		
 		try{
-			BufferedReader reader = new BufferedReader(new FileReader(filename));
+			BufferedReader reader = new BufferedReader(new FileReader(graphfile));
 			
 			String line;
 			while((line = reader.readLine()) != null) {
@@ -264,95 +269,95 @@ public class Graph {
 		
 		System.out.println("File read successful!!");          
 		System.out.println(G.vertices.size( ) + " vertices" );
-		System.out.println("Waiting for commands:");  
+		System.out.println(); 
 		
-		Scanner s = new Scanner(System.in);
-		
-		/*
-		 * 
-		 * Wait for commands. 
-		 * Reads commands and executes them. 
-		 * Raises valid errors if any
-		 */
-		while(true){
+		try{
+			BufferedReader reader = new BufferedReader(new FileReader(queriesfile));
+			FileWriter writer = new FileWriter(outputfile);
 			
-			/*
-			 * Valid Commands
-			 * 		print		quit	reachable	addedge		deleteedge
-			 * 		edgedown	edgeup	vertexdown	vertexup	path
-			 */
-			String command = s.nextLine();
-			
-			StringTokenizer st = new StringTokenizer(command);
-			
-			int tokenCount = st.countTokens();
-			
-			if(tokenCount == 0){
-				continue;
-			}
-			
-			String query = st.nextToken();
-			
-			if(query.equals("quit") && tokenCount == 1){
-				s.close();
-				return;
-			} else if(query.equals("print") && tokenCount == 1){
-				System.out.println(G);
-			} else if(query.equals("reachable") && tokenCount == 1){
-				G.printReachable();
-				System.out.println("");
-			} else if(query.equals("addedge") && tokenCount == 4){
-
-				String tailVertex = st.nextToken();
-				String headVertex = st.nextToken();
+			String line;
+			while((line = reader.readLine()) != null) {
 				
-				try{
-					Double weight = Double.parseDouble(st.nextToken());
-					G.addEdge(tailVertex, headVertex, weight);
-				} catch(NumberFormatException e){
-					System.out.println("Invalid Transmission Time!");
+				StringTokenizer st = new StringTokenizer(line);
+				
+				int tokenCount = st.countTokens();
+				
+				if(tokenCount == 0){
+					continue;
 				}
 				
-
-			} else if(query.equals("deleteedge") && tokenCount == 3){
-
-				String tailVertex = st.nextToken();
-				String headVertex = st.nextToken();
-				G.deleteEdge(tailVertex, headVertex);
-
-			} else if(query.equals("edgedown") && tokenCount == 3){
-
-				String tailVertex = st.nextToken();
-				String headVertex = st.nextToken();
-				G.edgeDown(tailVertex, headVertex);
-
-			} else if(query.equals("edgeup") && tokenCount == 3){
-
-				String tailVertex = st.nextToken();
-				String headVertex = st.nextToken();
-				G.edgeUp(tailVertex, headVertex);
-
-			} else if(query.equals("vertexdown") && tokenCount == 2){
-
-				String vertex = st.nextToken();
-				G.vertexDown(vertex);
-
-			} else if(query.equals("vertexup") && tokenCount == 2){
-
-				String vertex = st.nextToken();
-				G.vertexUp(vertex);
-
-			} else if(query.equals("path") && tokenCount == 3){
-
-				Dijkstra dj = new Dijkstra(G);
-				String startVertex = st.nextToken();
-				String endVertex = st.nextToken();
-				dj.findShortestPath(startVertex, endVertex);
+				String query = st.nextToken();
 				
-				System.out.println("");
-			} else{
-				System.out.println("Invalid Command!");
+				if(query.equals("quit") && tokenCount == 1){
+					writer.close();
+					reader.close();
+					return;
+				} else if(query.equals("print") && tokenCount == 1){
+					writer.write(G.toString() + "\n");
+				} else if(query.equals("reachable") && tokenCount == 1){
+					writer.write(G.printReachable() + "\n");
+				} else if(query.equals("addedge") && tokenCount == 4){
+
+					String tailVertex = st.nextToken();
+					String headVertex = st.nextToken();
+					
+					try{
+						Double weight = Double.parseDouble(st.nextToken());
+						G.addEdge(tailVertex, headVertex, weight);
+					} catch(NumberFormatException e){
+						writer.write(line + ": Invalid Transmission Time!\n");
+					}
+					
+
+				} else if(query.equals("deleteedge") && tokenCount == 3){
+
+					String tailVertex = st.nextToken();
+					String headVertex = st.nextToken();
+					G.deleteEdge(tailVertex, headVertex);
+
+				} else if(query.equals("edgedown") && tokenCount == 3){
+
+					String tailVertex = st.nextToken();
+					String headVertex = st.nextToken();
+					G.edgeDown(tailVertex, headVertex);
+
+				} else if(query.equals("edgeup") && tokenCount == 3){
+
+					String tailVertex = st.nextToken();
+					String headVertex = st.nextToken();
+					G.edgeUp(tailVertex, headVertex);
+
+				} else if(query.equals("vertexdown") && tokenCount == 2){
+
+					String vertex = st.nextToken();
+					G.vertexDown(vertex);
+
+				} else if(query.equals("vertexup") && tokenCount == 2){
+
+					String vertex = st.nextToken();
+					G.vertexUp(vertex);
+
+				} else if(query.equals("path") && tokenCount == 3){
+
+					Dijkstra dj = new Dijkstra(G);
+					String startVertex = st.nextToken();
+					String endVertex = st.nextToken();
+					dj.findShortestPath(startVertex, endVertex);
+					
+					writer.write(dj.getPath() + "\n\n");
+				} else{
+					writer.write(line + ": Invalid Command!\n");
+				}
 			}
+			
+			reader.close();
+			writer.close();
+		}	catch(FileNotFoundException e){
+			System.err.println("File Not Found!");
+			return;
+		} catch(IOException e){
+			System.err.println("Invalid Data!");
+			return;
 		}
 	
 	}

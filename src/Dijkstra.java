@@ -116,11 +116,6 @@ public class Dijkstra {
 			
 		}
 		
-		/*
-		 * Print the shortest path
-		 */
-		System.out.println(this.getPath());
-		
 	}
 	
 }
